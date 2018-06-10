@@ -2,9 +2,18 @@
 require "roda"
 
 class App < Roda
+  plugin :public
+  plugin :render
+
   route do |r|
-    r. root do
+    r.public
+
+    r.root do
       r.redirect '/hello'
+    end
+
+    r.get 'hey' do
+      view('hoge', locals: { hello: r.params['hello'] })
     end
 
     r.on 'hello' do
@@ -23,6 +32,13 @@ class App < Roda
           r.redirect
         end
       end
+      
+      r.get 'aaa' do
+        'hogheogeho'
+      end
+    end
+
+    r.on 'hello' do
     end
   end
 end
